@@ -9,7 +9,16 @@ app.get('/', function(req, res) {
 			obj.language = req.headers['accept-language'].split(',')[0];
 		}
 		if(req.headers['user-agent']) {
-			obj.software = req.headers['user-agent'].match(/\(.*\) /).toString().trim().match(/\(.*\) /).toString().trim();
+			console.log(req.headers['user-agent']);
+			match = req.headers['user-agent'].match(/\(.*\) /);
+			if(match) {
+				console.log("------------------");
+				console.log("Matched");
+				console.log(match);
+				console.log(match[0]);
+				console.log("------------------");
+				obj.software = match[0].trim().slice(1, match[0].length-2).trim();
+			}
 		}
 	}
 	res.json(obj);
